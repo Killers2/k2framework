@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/jQuery/inQuiry/inQuiry.Extentions.js"></script>
+    <script src="/jQuery/inQuiry/inQuiry.infiniteScroll/inQuiry.infiniteScroll.js"></script>
+
+    <style>
+
+        /* Demo css classes */
+
+        html, body{
+            min-height: 100%;
+        }
+        
+        body { font-family: 'Roboto Condensed'; background: #fafafa; line-height: 1.7; }
+        
+        :focus{
+            outline: none;
+        }
+
+        h1 { margin: 150px auto 30px auto; }
+        
+
+
+    </style>
+
+</head>
+<body>
+    <div id="infinite_scroller">
+       
+        <div>
+            <div>
+                <button data-order-column="Uid" data-order-by=""><span>Uid</span><i class="fa fa-sort"></i></button>
+                <button data-order-column="Name" data-order-by=""><span>Name</span><i class="fa fa-sort"></i></button>
+                <button data-order-column="Datestamp" data-order-by=""><span>Date</span><i class="fa fa-sort"></i></button>
+            </div>
+            <div>
+                <div>
+                    <input id="streamSearch" type="text" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+
+        <ul id="streamsTable" style="height: 450px;overflow-y: scroll;">
+
+        </ul>
+
+        <div>
+            <label id="streamCounter">Page 0, Total 0</label>
+            <a id="streamsTable-back"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var dataColumns = [];
+
+            $("button[data-order-column]").each((i, e) => {
+
+                dataColumns.push({ name: $(e).attr("data-order-column") });
+
+                $(e).off().on("click", (b) => {
+
+                    var ob = $(e).attr("data-order-by");
+                    if (ob == "") { ob = "-asc"; } else if (ob == "-asc") { ob = "-desc"; } else if (ob == "-desc") { ob = ""; }
+                    $(e).attr("data-order-by", ob);
+                    $(e).find("i").removeClass("fa-sort").removeClass("fa-sort-asc").removeClass("fa-sort-desc").addClass("fa-sort" + ob);
+
+                    var ifsc = $("#streamsTable")[0].infiniteScroll;
+                    ifsc.defaults.order = [];
+
+                    $.each(ifsc.defaults.columns, (i, c) => {
+                        var ord = $("button[data-order-column='" + c.name + "']").attr("data-order-by");
+                        if (ord != "") { 
+                            ifsc.defaults.order.push({ 
+                                column: i, 
+                                dir: ord.replace("-", "") 
+                            }); 
+                        }
+                    });
+
+                    ifsc.trigger();
+
+                });
+
+            });
+
+            $("#streamsTable-back").on("click", (e) => {
+                $('#streamsTable').animate({ 
+                    scrollTop: $('#streamsTable').position().top 
+                }, 'slow');
+            });
+
+            $("#streamsTable").infiniteScroll({
+                searchBox: $("#streamSearch")[0],
+                perPage: 15,
+                columns: dataColumns,
+                onPull: (data) => {
+
+                    //Send
+                    var req = {
+                        default: "0",
+                        draw: data.pageNo,
+                        take: data.perPage,
+                        skip: (data.perPage * (data.pageNo - 1)),
+                        fields: [],
+                        columns: data.columns,
+                        order: data.order,
+                        search: data.search
+                    };
+
+                    //returned
+                    var e = {
+                        data: [
+                            { name: "one" },
+                            { name: "two" },
+                            { name: "three" },
+                            { name: "four" },
+                            { name: "five" },
+                            { name: "six" },
+                            { name: "seven" },
+                            { name: "eight" },
+                            { name: "nine" },
+                            { name: "ten" },
+                            { name: "eleven" },
+                            { name: "twelve" },
+                            { name: "thirteen" },
+                            { name: "fourteen" },
+                            { name: "fifteen" },
+                            { name: "sixteen" },
+                            { name: "senventeen" },
+                            { name: "eighteen" },
+                            { name: "ninteen" },
+                            { name: "twenty one" },
+                            { name: "twenty two" },
+                            { name: "twenty three" },
+                            { name: "twenty four" },
+                            { name: "twenty five" }
+                        ],
+                        draw: 25,
+                        recordsTotal: 125,
+                    };
+
+                    if (e.data.length > 0) {
+                        $.each(e.data, (i, item) => {
+                            $(data.element).append("<a style=\"display: block;\" href=\"#\">SOME LINK "+ i +"</a>");
+                        });
+                        $("#streamCounter").html("Page " + e.draw + ", Total " + e.recordsTotal);
+                    } else {
+                        data.pageNo--;
+                    }
+
+                }
+            });
+
+    
+        });
+
+    </script>
+
+</body>
+</html>

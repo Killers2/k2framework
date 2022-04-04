@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" media="all" type="text/css" rel="stylesheet"></link>
+
+    <link href="/jQuery/inQuiry/inQuiry.contextMenu/contextMenu.css" media="all" type="text/css" rel="stylesheet"></link>
+    
+    <!-- jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/jQuery/inQuiry/inQuiry.Extentions.js"></script>
+    <script src="/jQuery/inQuiry/inQuiry.contextMenu/inQuiry.contextMenu.js"></script>
+
+    <style>
+
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .os_frames{
+            position:relative;
+            display: block;
+            height: 50px;
+            margin-top:100px;
+        }        
+        
+        .os_buttons{
+            position:absolute;
+            display: block;
+            top :200px;
+            left :200px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="aj_context_frame" class="os_frames">
+
+        <span ui-context-menu class="os_buttons" data-jsonid="123465">Right Click This</span>
+
+    </div>
+
+    <div id="aj_context_frame2" class="os_frames">
+
+        <span ui-context-menu class="os_buttons" data-jsonid="454212">Right Click This 2</span>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+    
+            $("#aj_context_frame").on('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            $("#aj_context_frame2").on('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            $("#aj_context_frame").find("[ui-context-menu]").ContextMenu({
+                name: "contextMenuWorkspace",
+                bindings: [
+                    {
+                        command: "New Work Space", 
+                        iconClass: "fa fa-refresh",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    {
+                        command: "Toggle Grid View", 
+                        iconClass: "fa fa-qrcode",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Edit Attributes", 
+                        iconClass: "fa fa-edit",
+                        callback: (buttonItem, menuItem) => {
+
+                            
+                            return;
+                        }
+                    },
+                    {
+                        command: "Clear Connections", 
+                        iconClass: "fa fa-share-alt",
+                        callback: (buttonItem, menuItem) => {
+
+                            
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Debug", 
+                        iconClass: "fa fa-bug",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Open File", 
+                        iconClass: "fa fa-folder-open",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "SaveAs File", 
+                        iconClass: "fa fa-save",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    {
+                        command: "Save Stream", 
+                        iconClass: "fa fa-cloud-upload",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Reload Application", 
+                        iconClass: "fa fa-bullseye",
+                        callback: (buttonItem, menuItem) => {
+                            
+                            return;
+                        }
+                    }
+                ],
+                onOpening: (preventDefault) => {
+   
+                    return false;
+                }
+            });
+
+            $("#aj_context_frame2").find("[ui-context-menu]").ContextMenu({
+                name: "contextMenuSecond",
+                //parent: null,
+                bindings: [
+                    {
+                        command: "Second New Work Space", 
+                        iconClass: "fa fa-refresh",
+                        callback: (buttonItem, menuItem) => {
+                            console.log("Second Clicked - New Work Space") 
+                            return;
+                        }
+                    },
+                    {
+                        command: "Second Toggle Grid View", 
+                        iconClass: "fa fa-qrcode",
+                        callback: (buttonItem, menuItem) => {
+                            console.log("Second Clicked - Toggle Grid View") 
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Second Edit Attributes", 
+                        iconClass: "fa fa-edit",
+                        callback: (buttonItem, menuItem) => {
+                            console.log("Second Clicked - Edit Attributes") 
+                            return;
+                        }
+                    },
+                    {
+                        command: "Second Clear Connections", 
+                        iconClass: "fa fa-share-alt",
+                        callback: (buttonItem, menuItem) => {                            
+                            console.log("Second Clicked - Clear Connections") 
+                            return;
+                        }
+                    },
+                    {
+                        command: "Second Options",
+                        iconClass: "fa fa-share-alt",
+                        subIconClass: "fa fa-arrow-right",
+                        bindings: [
+                            {
+                                command: "Second Open File Option", 
+                                iconClass: "fa fa-folder-open",
+                                callback: (buttonItem, menuItem) => {                                    
+                                    console.log("Second Clicked - Open File Option") 
+                                    return;
+                                }
+                            },
+                            { command: "-br" },
+                            {
+                                command: "Second SaveAs File Option", 
+                                iconClass: "fa fa-save",
+                                callback: (buttonItem, menuItem) => {                                    
+                                    console.log("Second Clicked - SaveAs File Option") 
+                                    return;
+                                }
+                            },
+                            {
+                                command: "Second Save Stream Option", 
+                                iconClass: "fa fa-cloud-upload",
+                                callback: (buttonItem, menuItem) => {                                    
+                                    console.log("Second Clicked - Save Stream Option") 
+                                    return;
+                                }
+                            }
+                        ]
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Second Debug", 
+                        iconClass: "fa fa-bug",
+                        callback: (buttonItem, menuItem) => {                            
+                            console.log("Second Clicked - Debug") 
+                            return;
+                        }
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Second File",
+                        subIconClass: "fa fa-arrow-right",
+                        bindings: [
+                            {
+                                command: "Second Open File", 
+                                iconClass: "fa fa-folder-open",
+                                callback: (buttonItem, menuItem) => {                                    
+                                    console.log("Second Clicked - Open File") 
+                                    return;
+                                }
+                            },
+                            { command: "-br" },
+                            {
+                                command: "Second Options 2",
+                                iconClass: "fa fa-share-alt",
+                                subIconClass: "fa fa-arrow-right",
+                                bindings: [
+                                    {
+                                        command: "Second Open File Option 2", 
+                                        iconClass: "fa fa-folder-open",
+                                        callback: (buttonItem, menuItem) => {                                    
+                                            console.log("Second Clicked - Open File Option 2") 
+                                            return;
+                                        }
+                                    },
+                                    { command: "-br" },
+                                    {
+                                        command: "Second SaveAs File Option 2", 
+                                        iconClass: "fa fa-save",
+                                        callback: (buttonItem, menuItem) => {                                    
+                                            console.log("Second Clicked - SaveAs File Option 2") 
+                                            return;
+                                        }
+                                    },
+                                    {
+                                        command: "Second Save Stream Option 2", 
+                                        iconClass: "fa fa-cloud-upload",
+                                        callback: (buttonItem, menuItem) => {                                    
+                                            console.log("Second Clicked - Save Stream Option 2") 
+                                            return;
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                command: "Second Save Stream", 
+                                iconClass: "fa fa-cloud-upload",
+                                callback: (buttonItem, menuItem) => {                                    
+                                    console.log("Second Clicked - Save Stream") 
+                                    return;
+                                }
+                            }
+                        ]
+                    },
+                    { command: "-br" },
+                    {
+                        command: "Second Reload Application", 
+                        iconClass: "fa fa-bullseye",
+                        callback: (buttonItem, menuItem) => {
+                            console.log("Second Clicked - Reload Application") 
+                            return;
+                        }
+                    }
+                ],
+                onOpening: (preventDefault, evt) => {
+                    //if(evt.target !== evt.currentTarget) { return true; }
+                    return false;
+                }
+            });
+
+        });
+    
+    </script>
+
+</body>
+</html>

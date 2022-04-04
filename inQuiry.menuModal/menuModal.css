@@ -1,0 +1,165 @@
+*, *::after, *::before {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+:root{
+    --tabMenuWidth: 275px;
+    --window-tabs-container-color:#FEFEFE;
+    --window-tabs-container-background-color:#222222;
+    --window-tab-menu-background-color: #700170;
+    --window-tab-menu-scrollbar-color-thumb: #700170a2;
+    --window-tab-menu-scrollbar-color-thumb-hover: #700170a2;
+    --window-tab-menu-scrollbar-color-track: #222222;
+    --window-tab-menu-ul-li-background-color: #700170;
+    --window-tab-menu-ul-li-border-bottom-color: #505050;
+    --window-tab-menu-ul-li-hover-color: #323232;
+    --window-tab-menu-ul-li-hover-background-color: #DEDEDE;
+    --window-tab-menu-circle-logo-background-color: #700170;
+    --window-tab-menu-view-border-top-color: #505050;
+}
+
+.window-tabs-container {
+    display: flex;
+    flex-direction: row;
+    color: var(--window-tabs-container-color);
+    background-color: var(--window-tabs-container-background-color);
+    padding: 0;
+    margin: 0;
+    height: inherit;
+}
+
+.window-tab-main-menu {
+    width: 100%;    
+    padding: 0;
+    margin: 0;    
+}
+
+.window-tab-menu {
+    display: flex;
+    flex-direction: column;
+    width: var(--tabMenuWidth);   
+    padding: 0;
+    margin: 0;
+    background-color: var(--window-tab-menu-background-color);
+    height: inherit;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--window-tab-menu-scrollbar-color-thumb) var(--window-tab-menu-scrollbar-color-track);
+    scrollbar-width: thin;
+}
+
+.window-tab-menu::-webkit-scrollbar {
+    width: 5px;
+}
+
+.window-tab-menu::-webkit-scrollbar-track {
+    background: var(--window-tab-menu-scrollbar-color-track);
+}
+
+.window-tab-menu::-webkit-scrollbar-thumb {
+    background: var(--window-tab-menu-scrollbar-color-thumb);
+}
+
+.window-tab-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--window-tab-menu-scrollbar-color-thumb-hover);
+}
+
+.window-tab-menu-screen {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    height: inherit;
+    background-color: var(--window-tabs-container-background-color);
+}
+
+.window-tab-menu-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.window-tab-menu-row-padding {
+    padding: 0.4rem
+}
+
+.window-tab-menu-row-height {
+    height: inherit;
+}
+
+.window-tab-menu ul {
+    list-style: none;    
+    padding: 0;
+    margin: 0;
+}
+
+.window-tab-menu ul li{
+    padding: .5rem;
+    background-color: var(--window-tab-menu-ul-li-background-color);
+    border-bottom: 1px solid var(--window-tab-menu-ul-li-border-bottom-color);    
+    cursor: pointer;
+}
+
+.window-tab-menu ul li:hover{
+    color: var(--window-tab-menu-ul-li-hover-color);
+    background-color: var(--window-tab-menu-ul-li-hover-background-color);
+}
+
+.window-tab-menu ul li .before{
+    padding: 0;
+    margin: 0;
+}
+
+.window-tab-menu ul li .current{
+    padding: 0;
+    margin: 0;
+}
+
+.window-tab-menu ul li .after{
+    padding: 0;
+    margin: 0;
+}
+
+.window-tab-menu ul li label {
+    user-select: none;
+    cursor: pointer;
+}
+
+.window-tab-menu ul li  i {
+    position: relative;
+    margin-right: 0.5rem
+}
+
+.window-tab-menu-circle-logo {
+    background-color: var(--window-tab-menu-circle-logo-background-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 30%;
+    line-height: 50px;
+    text-align: center;
+    display: inline-block;
+}
+
+.window-tab-menu-circle-logo-text {
+    display: inline-block;
+    margin-left: 5px;
+    line-height: 50px;
+}
+
+.window-tab-menu-view { 
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--window-tab-menu-view-border-top-color);
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.window-tab-menu-window-iframe{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+

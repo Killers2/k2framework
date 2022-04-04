@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" media="all" type="text/css" rel="stylesheet"></link>
+        
+    <link href="/inQuiry.menuModal/menuModal.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.toolTip/toolTip.css" media="all" type="text/css" rel="stylesheet"></link>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/inQuiry/inQuiry.js"></script>
+    <script src="/inQuiry.animation/inQuiry.animation.js"></script>
+    <script src="/inQuiry.toolTip/inQuiry.toolTip.js"></script>
+    <script src="/inQuiry.menuModal/inQuiry.menuModal.js"></script>
+    
+    <style>
+
+        /* Demo css classes */
+
+        html, body, .os_frame{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        :focus{
+            outline: none;
+        }
+
+        .os_frame{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 750px;
+            height: 350px;
+            /* height: 100hv; */
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="os_frame" class="os_frame">
+
+        <div id="test" class="test"></div>
+         
+    </div>
+
+    <script>
+
+        $$(document).ready(function () {
+
+            $$("#test").menuModal({
+                id: "test-menu",
+                name: "MenuModal",
+                isSubMenu: false,
+                items:[
+                    {
+                        loader: $$.menuModalLoader.ASYNC,
+                        section: "#aj_context_frame",
+                        method: "http://127.0.0.1:5500/contextMenu.html",
+                        label: "SOME THING THING",
+                        fontAwsomeIconClass: "fa fa-building",
+                        toolTipConfig: { 
+                            content: "SOME THING THING",  
+                            maxWidth: 150,  
+                            toolTipPos: $$.uiToolTipPos.FREETOPRIGHT 
+                        },
+                        eventConfig: { 
+                            onIframeEventReceive: null, 
+                            onClickEvent: null, 
+                            onContentLoading: null, 
+                            onContentLoaded: null, 
+                            onContentClear: null
+                        }
+                    },
+                    {
+                        loader: $$.menuModalLoader.IFRAME,
+                        uri: null,
+                        label: "SOME THING THING 2",
+                        fontAwsomeIconClass: "fa fa-book",
+                        toolTipConfig: { content: "SOME THING THING 2",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.CONTENT,
+                        uri: null,
+                        label: "SOME THING 3",
+                        fontAwsomeIconClass: "fa fa-beer",
+                        toolTipConfig: { content: "SOME THING 3",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.SCRIPT,
+                        uri: null,
+                        label: "SOME THING 4",
+                        fontAwsomeIconClass: "fa fa-bug",
+                        toolTipConfig: { content: "SOME THING 4",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.CONTENT,
+                        uri: null,
+                        label: "SOME THING 5",
+                        fontAwsomeIconClass: "fa fa-folder",
+                        toolTipConfig: { content: "SOME THING 5",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.CONTENT,
+                        uri: null,
+                        label: "SOME THING 6",
+                        fontAwsomeIconClass: "fa fa-envelope",
+                        toolTipConfig: { content: "SOME THING 6",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.SCRIPT,
+                        uri: null,
+                        label: "SOME THING 7",
+                        fontAwsomeIconClass: "fa fa-bug",
+                        toolTipConfig: { content: "SOME THING 7",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.CONTENT,
+                        uri: null,
+                        label: "SOME THING 8",
+                        fontAwsomeIconClass: "fa fa-folder",
+                        toolTipConfig: { content: "SOME THING 8",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    },
+                    {
+                        loader: $$.menuModalLoader.CONTENT,
+                        uri: null,
+                        label: "SOME THING 9",
+                        fontAwsomeIconClass: "fa fa-envelope",
+                        toolTipConfig: { content: "SOME THING 9",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
+                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                    }
+                ],
+                onBuilt: () => {}
+            });
+
+        });
+      
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <link href="/jQuery/inQuiry/inQuiry.toast/toast.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/jQuery/inQuiry/inQuiry.toast/themes/glass.css" media="all" type="text/css" rel="stylesheet"></link>
+    
+    <!-- jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/jQuery/inQuiry/inQuiry.Extentions.js"></script>
+    <script src="/jQuery/inQuiry/inQuiry.toast/inQuiry.toast.js"></script>
+
+    <style>
+
+        /* Demo css classes */
+
+        html, body{
+            min-height: 100%;
+        }
+        
+        body { font-family: 'Roboto Condensed'; background: #fafafa; line-height: 1.7; }
+        
+        :focus{
+            outline: none;
+        }
+
+        h1 { margin: 150px auto 30px auto; }
+        
+
+
+    </style>
+
+</head>
+<body>
+
+    <div id="os_frame" class="os_frame">
+    
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $.uiToast({
+                text: "Tony Test Invalid!",
+                position: "top-right",
+                onClose: () => { },
+                canClose: true,
+                autoClose: 2500,
+                showProgress: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: true
+            });
+
+
+        });
+     
+    </script>
+
+</body>
+</html>

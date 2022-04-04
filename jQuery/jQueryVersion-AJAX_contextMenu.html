@@ -1,0 +1,111 @@
+
+<div id="aj_context_frame">
+    
+    <span ui-context-menu class="os_buttons" data-jsonid="123465">Right Click This</span>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#aj_context_frame").on('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        $("#aj_context_frame").on("click", (e) => {
+            $.ContextMenuHideAll();
+            return true;
+        });
+
+        $("span[ui-context-menu]").ContextMenu({
+            name: "contextMenuWorkspace",
+            bindings: [
+                {
+                    command: "New Work Space", 
+                    iconClass: "fa fa-refresh",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                {
+                    command: "Toggle Grid View", 
+                    iconClass: "fa fa-qrcode",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                { command: "-br" },
+                {
+                    command: "Edit Attributes", 
+                    iconClass: "fa fa-edit",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                {
+                    command: "Clear Connections", 
+                    iconClass: "fa fa-share-alt",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                { command: "-br" },
+                {
+                    command: "Debug", 
+                    iconClass: "fa fa-bug",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                { command: "-br" },
+                {
+                    command: "Open File", 
+                    iconClass: "fa fa-folder-open",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                { command: "-br" },
+                {
+                    command: "SaveAs File", 
+                    iconClass: "fa fa-save",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                {
+                    command: "Save Stream", 
+                    iconClass: "fa fa-cloud-upload",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                },
+                { command: "-br" },
+                {
+                    command: "Reload Application", 
+                    iconClass: "fa fa-bullseye",
+                    callback: (buttonItem, menuItem) => {
+                        
+                        return;
+                    }
+                }
+            ],
+            onOpening: (preventDefault) => {
+
+                return false;
+            }
+        });
+
+    });
+
+</script>

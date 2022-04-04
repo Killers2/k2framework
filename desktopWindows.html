@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework (inQuiry)</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" media="all" type="text/css" rel="stylesheet"></link>
+
+    <link href="/inQuiry.ui/inQuiry.ui.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.contextMenu/contextMenu.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.toolTip/toolTip.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.desktopWindows/desktopWindows.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.menuModal/menuModal.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.toast/toast.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.calendarPopup/calendarPopup.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.startMenu/startMenu.css" media="all" type="text/css" rel="stylesheet"></link>
+
+    <!-- desktop theme always last as it will override default css on some elements-->
+    <link href="/inQuiry.toast/themes/glass.css" media="all" type="text/css" rel="stylesheet"></link>
+    <link href="/inQuiry.desktopWindows/themes/default/default.css" media="all" type="text/css" rel="stylesheet"></link>
+    
+    <!-- inQuiry JS Framework dependencies-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/inQuiry/inQuiry.js"></script>
+    <script src="/inQuiry.animation/inQuiry.animation.js"></script>
+    <script src="/inQuiry.objectCookie/inQuiry.objectCookie.js"></script>
+    <script src="/inQuiry.toolTip/inQuiry.toolTip.js"></script>
+    <script src="/inQuiry.contextMenu/inQuiry.contextMenu.js"></script>
+    <script src="/inQuiry.ui/inQuiry.ui.js"></script>
+    <script src="/inQuiry.desktopWindows/inQuiry.desktopWindows.js"></script>
+    <script src="/inQuiry.menuModal/inQuiry.menuModal.js"></script>
+    <script src="/inQuiry.toast/inQuiry.toast.js"></script>
+    <script src="/inQuiry.calendarPopup/inQuiry.calendarPopup.js"></script>
+    <script src="/inQuiry.startMenu/inQuiry.startMenu.js"></script>
+   
+    <style>
+
+        body{
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="os_frame" class="os_frame"></div>
+
+    <script>
+
+        var theme = "default";
+
+        $$(document).ready(function () {
+
+            $$("#os_frame").desktopWindow({
+                desktopTitle: "Windows Desktop",
+                desktopSwtichAnimation: true,
+                desktopBootLoaderShow: false,
+                deskTopClock: true,
+                deskTopClock24Hour: true,
+                deskTopDate: true,
+                deskTopCount: 2,
+                onDesktopSelected: (desktop) => { },
+                desktopOnClick: (evt) => { },
+                appsBarOnClick: (evt) => { },
+                taskBarOnClick: (evt) => { },
+                calendarOnClick: (evt) => {
+
+                    //Lets show the desktop canendar popup.
+                    if(!$$("#desktop-calendar").hasClass("calendar-popup-calendar-show")) {
+                        $$("#desktop-calendar").addClass("calendar-popup-calendar-show").onClickOut(() => {
+                            $$("#desktop-calendar").removeClass("calendar-popup-calendar-show");
+                        });
+                    }
+
+                },
+                onRenderd: (environment) => { 
+                    
+                    //Lets add a desktop context menu
+                    $$(".desktop-desktop").ContextMenu({
+                        name: "desktop",
+                        bindings: [
+                            {
+                                command: "Refresh", 
+                                iconClass: "fa-solid fa-refresh",
+                                callback: (buttonItem, menuItem) => {
+                                       
+                                    //An example message box with shield
+                                    environment.messageBox({
+                                        title: "Confirm",
+                                        message: "Refreshing your browser will reset all open windows and exit full screen if you have full screen enabled.<br /><br />Make sure your settings are saved before continuing.",
+                                        width: 300,
+                                        height: 175,
+                                        onCancel: () => { },
+                                        onOk: () => {
+                                            window.location = $$.browser.uri.pathname;
+                                        }
+                                    });
+
+                                    return;
+                                }
+                            }
+                        ],
+                        onOpening: (preventDefault, evt) => {
+                            if(evt.target !== evt.currentTarget) { return true; }
+                        }
+                    });
+
+                    //Lets add a setting button to toggle fullscreen
+                    environment.settingsappsbox.add({
+                        id: "btn_taskbar_fullscreen",
+                        img: "/inQuiry.desktopWindows/themes/" + theme + "/images/fullscreen.svg",
+                        tooltipContent: "Toggle full screen.",		
+                        action: () => {
+                            
+                            $$.screen.toggleFullScreen();
+                            
+                            setTimeout(() => {
+                                if ($$.screen.isFullScreen()) {
+                                    $$("#btn_taskbar_settings").addClass("desktop-taskbar-icon-selected");
+                                } else {
+                                    $$("#btn_taskbar_settings").removeClass("desktop-taskbar-icon-selected");
+                                }
+                            }, 100);
+
+                        }
+                    });
+
+                    //Lets add a desktop canendar popup for the calendarOnClick event
+                    $$("#os_frame").append($$("<div />", { id: "desktop-calendar" }));
+                    $$("#desktop-calendar").calendarPopup({
+                        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
+                        weekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                        onDayClick: (date) => { 
+                            //Used for selecting a day and loading default application / api request
+                        }
+                    });
+
+                    //Lets add a desktop start menu using the startMenu plugin.
+                    $$("#os_frame").append($$("<div />", { id: "desktop-start-menu" }));
+                    $$("#desktop-start-menu").startMenu({
+                        searchDelay: 375,
+                        allowSearchNoText: false,
+                        minCharsOnSearch: 1,
+                        searchApi: (term) => { 
+                            // Run server side api request with search term here.
+                        }
+                    });
+                    
+                    //Lets add a start menu button to the apps bar manually
+                    environment.appsbar.add({ 
+                        id: "btn-appsbar-appsearch", 
+                        img: "/inQuiry.desktopWindows/themes/" + theme + "/images/main-menu.svg",
+                        contextmenu: false,
+                        applicationname: "appSearch",
+                        tooltipDirection: "RIGHT",
+                        tooltipContent: "Search for more applications.<br />Applications are plugins, added or built.",
+                        action: () => {
+
+                            //Lets hide and show the start menu item.
+                            if(!$$("#desktop-start-menu").hasClass("start-menu-show")) {
+                                $$("#desktop-start-menu").addClass("start-menu-show").onClickOut(() => {
+                                    $$("#desktop-start-menu").removeClass("start-menu-show");
+                                });
+                            }
+
+                        }
+                    });
+
+                    //Lets add a desktop shortcut icon
+                    environment.desktop.add({ 
+                        id: "dkt-shortcut-diapp", 
+                        img: "/assets/images/hd.di.logo.raw.png",
+                        applicationname: "Descreet investigators",
+                        tooltipContent: "This icon loads an app.",
+                        onDblclick: () => { },
+                        onOpen: () => { },
+                        onOpenToDesktop: () => { },
+                        onCopy: () => { },
+                        onPaste: () => { },
+                        onDelete: () => { },
+                        onProperties: () => { }
+                    });
+
+                }
+            });
+
+            new $$.desktopWindows.window({
+                windowId: 'koscalcss3',
+                applicationName: 'MenuModal test',
+                width: 500,
+                height: 375,
+                position: $$.desktopWindows.TOPLEFT,
+                appType: $$.desktopWindows.APPNORMAL,
+                margin: 100,
+                shield: false,
+                windowicon: "/assets/images/iconset1/48/layers.png",
+                statusBar: false,
+                onload: parms => {
+
+                    $$(parms.windowcontent).first().fadeOut(800, () => {
+
+                        $$(parms.windowcontent).first().remove();
+
+                        parms.defaults.applicationName = "MenuModal test loader..";
+
+                        $$(parms.windowtitle).text(parms.defaults.applicationName);
+                        
+                        $$(parms.windowcontent).menuModal({
+                            id: "test-menu",
+                            name: "MenuModal",
+                            items:[
+                                {
+                                    loader: $$.menuModalLoader.ASYNC,
+                                    method: "http://127.0.0.1:5500/AJAX_contextMenu.html",
+                                    label: "AJAX contextMenu",
+                                    fontAwsomeIconClass: "fa fa-building",
+                                    toolTipConfig: { 
+                                        content: "ContextMenu via AJAX",  
+                                        maxWidth: 150,  
+                                        toolTipPos: $$.uiToolTipPos.FREETOPRIGHT 
+                                    },
+                                    eventConfig: { 
+                                        onIframeEventReceive: null, 
+                                        onClickEvent: null, 
+                                        onContentLoading: null, 
+                                        onContentLoaded: null, 
+                                        onContentClear: null
+                                    }
+                                },
+                                {
+                                    loader: $$.menuModalLoader.ASYNC,
+                                    section: "#infinite_scroller",
+                                    method: "http://127.0.0.1:5500/InfiniteScroller.html",
+                                    label: "PJAX infiniteScroll",
+                                    fontAwsomeIconClass: "fa fa-building",
+                                    toolTipConfig: { 
+                                        content: "InfiniteScroll via PJAX",  
+                                        maxWidth: 150,  
+                                        toolTipPos: $$.uiToolTipPos.FREETOPRIGHT 
+                                    },
+                                    eventConfig: { 
+                                        onIframeEventReceive: null, 
+                                        onClickEvent: null, 
+                                        onContentLoading: null, 
+                                        onContentLoaded: () => { 
+                                            $$("#streamsTable").css("height", "300px");
+                                        },
+                                        onContentClear: null
+                                    }
+                                },
+                                {
+                                    loader: $$.menuModalLoader.IFRAME, 
+                                    method: "http://127.0.0.1:5500/InfiniteScroller.html", 
+                                    label: "IFRAME infiniteScroll", 
+                                    fontAwsomeIconClass: "fa fa-book",
+                                },
+                                {
+                                    loader: $$.menuModalLoader.CONTENT, 
+                                    method: "Add Some Content for Test Load using CONTENT.", 
+                                    label: "Test Load using CONTENT", 
+                                    fontAwsomeIconClass: "fa fa-beer",
+                                },
+                                {
+                                    loader: $$.menuModalLoader.SCRIPT, 
+                                    method: () => { 
+                                        $$("#window-tab-menu-view").html("Add Some Content for Test Load using SCRIPT"); 
+                                    }, 
+                                    label: "Test Load using SCRIPT", 
+                                    fontAwsomeIconClass: "fa fa-bug",
+                                }
+                            ],
+                            onBuilt: () => {}
+                        });
+
+                    });
+
+                },
+                onclose: parms => { return; },
+                onresize: parms => { return; },
+                ondoubleclick: parms => { return; },
+                onfocus: parms => { return; },
+                onmaximize: parms => { return; },
+                onminimize: parms => { return; },
+                onrestore: parms => { return; }
+            }).load();
+
+            $$.uiToast({
+                text: "koscalcss3 Window Loaded!",
+                position: "bottom-right",
+                canClose: true,
+                autoClose: 5000,
+                showProgress: true,
+                pauseOnHover: true,
+                pauseOnFocusLoss: true,
+                onClose: () => {}
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

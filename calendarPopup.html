@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>K2Framework</title>
+    <meta name="description" content="K2Framework" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" media="all" type="text/css" rel="stylesheet"></link>
+    
+    <link href="/inQuiry.calendarPopup/calendarPopup.css" media="all" type="text/css" rel="stylesheet"></link>
+
+    <!-- inQuiry JS Framework (based on k2 framework)-->
+    <script src="/inQuiry/inQuiry.js"></script>
+    <script src="/inQuiry.calendarPopup/inQuiry.calendarPopup.js"></script>
+
+    <style>
+
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        #aj_context_frame{
+            position:relative;
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }        
+
+    </style>
+
+</head>
+<body>
+
+    <div id="aj_context_frame">
+
+
+        <div id="calendar" class=""></div>
+
+
+    </div>
+
+    <script>
+
+        $$(document).ready(function () {
+    
+            $$("#calendar").calendarPopup({
+                months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Octomber", "November", "December"],
+                weekDays: ["S", "M", "T", "W", "T", "F", "S"],
+            });
+ 
+        });
+    
+    </script>
+
+</body>
+</html>
