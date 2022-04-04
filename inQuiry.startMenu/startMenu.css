@@ -13,8 +13,7 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.start-menu-show
-{
+.start-menu-show {
     transform: translateY(0%);
     transition: transform 0.2s ease-in-out;
     z-index: 99999999999;
@@ -85,7 +84,7 @@
     height: 100%;
     background-color: #33373c21;
     user-select: none;
-    background-image: url(/assets/images/iconset1/16/search-3.png);
+    background-image: url(/assets/images/search-3.png);
     background-repeat: no-repeat;
     background-size: 16px 16px;
     background-position: 50% 50%;
