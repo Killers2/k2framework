@@ -189,8 +189,10 @@
             d.append(g);
             d.append(h);
 
+            var progress = $("<div />", { id: 'window-tab-menu-view-progressbar', class: 'window-tab-menu-view-progressbar'});
             var j = $("<div />", { id: 'window-tab-menu-view', class: 'window-tab-menu-view'});
             
+            f.append(progress);
             f.append(j);
 
             b.append(d);
@@ -382,6 +384,44 @@
                 $.ajax({ 
                     type: "get", 
                     url: item.method,  // AS ASYNC the prop URI is url of the ajax site content.
+                    beforeSend: (xhr, options) => {
+
+                        $('.window-tab-menu-view-progressbar').removeClass('hide');
+
+                    },
+                    xhr: function() {
+                        var xhr = new window.XMLHttpRequest();
+                
+                        // Upload progress
+                        xhr.upload.addEventListener("progress", function(evt){
+                            if (evt.lengthComputable) {
+                                var percentComplete = ((evt.loaded / evt.total) * 100);
+
+                                $('.window-tab-menu-view-progressbar').css("width",  percentComplete + "%");
+
+                                if (percentComplete === 100) 
+                                {
+                                    $('.window-tab-menu-view-progressbar').addClass('hide');
+                                } 
+                            }
+                       }, false);
+                       
+                       // Download progress
+                       xhr.addEventListener("progress", function(evt){
+                           if (evt.lengthComputable) {
+                            var percentComplete = ((evt.loaded / evt.total) * 100);
+
+                            $('.window-tab-menu-view-progressbar').css("width",  percentComplete + "%");
+
+                            if (percentComplete === 100) 
+                            {
+                                $('.window-tab-menu-view-progressbar').addClass('hide');
+                            } 
+                        }
+                       }, false);
+                       
+                       return xhr;
+                    },
                     success: (data, status, xhr) => {
 
                         if(pjaxOption && $.inQuiry.pjax) {

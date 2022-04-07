@@ -78,6 +78,7 @@
 .window-tab-menu-row {
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .window-tab-menu-row-padding {
@@ -156,6 +157,40 @@
     height: 100%;
 }
 
+.window-tab-menu-view-progressbar {
+    position: absolute;
+    background-color: #54b34273;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    transition: width .3s;
+}
+
+.window-tab-menu-view-progressbar.hide {
+    opacity: 0;
+    transition: opacity 1.3s;
+}
+
+.window-tab-menu-view-progressbar::after {
+content: "";
+position: absolute;
+top: 3px;
+right: 2px;
+width: 15px;
+height: 15px;
+margin: 0 auto;
+border: 1px solid #54b34273;
+border-radius: 50%;
+border-left-color: transparent;
+border-right-color: transparent;
+animation: cssload-spin 325ms infinite linear;
+    -o-animation: cssload-spin 325ms infinite linear;
+    -ms-animation: cssload-spin 325ms infinite linear;
+    -webkit-animation: cssload-spin 325ms infinite linear;
+    -moz-animation: cssload-spin 325ms infinite linear;
+}
+
 .window-tab-menu-window-iframe{
     padding: 0;
     margin: 0;
@@ -163,3 +198,22 @@
     height: 100%;
 }
 
+@keyframes cssload-spin {
+	100%{ transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-o-keyframes cssload-spin {
+	100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-ms-keyframes cssload-spin {
+	100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-webkit-keyframes cssload-spin {
+	100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-moz-keyframes cssload-spin {
+	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
