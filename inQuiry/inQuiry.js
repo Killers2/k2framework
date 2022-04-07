@@ -826,18 +826,7 @@
         };
         trigger(name) {
 
-            if(name.toLowerCase() == "ready")
-            {
-                
-                inQuiryCache.domQueueProcessed = false;
-
-                processDOMReady();
-
-                return this;
-
-            }
-
-            this[0].dispatchEvent(new Event(name));
+            inQuiry.trigger(this[0], name);
 
             return this;
 
@@ -1998,6 +1987,24 @@
             return result;
         }
     };
+    inQuiry.trigger = function(element, eventName) {
+
+        if(eventName.toLowerCase() == "ready")
+        {
+            
+            inQuiryCache.domQueueProcessed = false;
+
+            processDOMReady();
+
+            return this;
+
+        }
+
+        element.dispatchEvent(new Event(eventName));
+
+        return element;
+
+    };
     inQuiry.ajax = function (options) {
         
         //error can be either the general function "(e) => { alert(e.message); }" or an object with functions representing the statusCode and general.
@@ -2025,6 +2032,7 @@
             cache: false,
             xhr: null,
             beforeSend: (xhr, options) => { },
+            progress: (xhr, percent) => { },
             success: (response, xhr, options) => { },
             error: { 
                 xhr: (xhr, options) => { },
@@ -2081,6 +2089,25 @@
             if (!ajaxRequest) { 
                 return;
             }
+
+            try 
+            {
+
+                ajaxRequest.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = ((evt.loaded / evt.total) * 100);
+                        options.progress(ajaxRequest, percentComplete);
+                    }
+                }, false);
+
+                ajaxRequest.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = ((evt.loaded / evt.total) * 100);
+                        options.progress(ajaxRequest, percentComplete);
+                    }
+                }, false);
+
+            } catch{}
 
             var errorFunc;
         

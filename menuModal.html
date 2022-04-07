@@ -91,7 +91,15 @@
                         label: "SOME THING THING 2",
                         fontAwsomeIconClass: "fa fa-book",
                         toolTipConfig: { content: "SOME THING THING 2",  maxWidth: 150,  toolTipPos: $$.uiToolTipPos.FREETOPRIGHT },
-                        eventConfig: { onIframeEventReceive: null, onClickEvent: null, onContentLoading: null, onContentLoaded: null, onContentClear: null }
+                        eventConfig: { 
+                            onIframeEventReceive: (evt) => {
+                                
+                            }, 
+                            onClickEvent: null, 
+                            onContentLoading: null, 
+                            onContentLoaded: null, 
+                            onContentClear: null 
+                        }
                     },
                     {
                         loader: $$.menuModalLoader.CONTENT,

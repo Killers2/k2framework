@@ -259,7 +259,19 @@
                                     }
                                 },
                                 {
-                                    loader: $.menuModalLoader.IFRAME, method: "http://127.0.0.1:5500/jQuery/jQueryVersion-InfiniteScroller.html", label: "IFRAME infiniteScroll", fontAwsomeIconClass: "fa fa-book",
+                                    loader: $.menuModalLoader.IFRAME, 
+                                    method: "http://127.0.0.1:5500/jQuery/jQueryVersion-InfiniteScroller.html", 
+                                    label: "IFRAME infiniteScroll", 
+                                    fontAwsomeIconClass: "fa fa-book",
+                                    eventConfig: { 
+                                        onIframeEventReceive: (evt) => {
+                                            
+                                        }, 
+                                        onClickEvent: null, 
+                                        onContentLoading: null, 
+                                        onContentLoaded: null, 
+                                        onContentClear: null 
+                                    }
                                 },
                                 {
                                     loader: $.menuModalLoader.CONTENT, method: "Add Some Content for Test Load using CONTENT.", label: "Test Load using CONTENT", fontAwsomeIconClass: "fa fa-beer",

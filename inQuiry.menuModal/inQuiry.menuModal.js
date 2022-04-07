@@ -189,8 +189,10 @@
             d.append(g);
             d.append(h);
 
+            var progress = $$("<div />", { id: 'window-tab-menu-view-progressbar', class: 'window-tab-menu-view-progressbar'});
             var j = $$("<div />", { id: 'window-tab-menu-view', class: 'window-tab-menu-view'});
             
+            f.append(progress);
             f.append(j);
 
             b.append(d);
@@ -383,6 +385,21 @@
                     url: item.method,  // AS ASYNC the prop URI is url of the ajax site content.
                     autorun: true,
                     pjax: pjaxOption,
+                    beforeSend: (xhr, options) => {
+
+                        $$('.window-tab-menu-view-progressbar').removeClass('hide');
+
+                    },
+                    progress: (xhr, percent) => {
+  
+                        $$('.window-tab-menu-view-progressbar').css("width",  percent + "%");
+
+                        if (percent === 100) 
+                        {
+                            $$('.window-tab-menu-view-progressbar').addClass('hide');
+                        } 
+
+                    },
                     success: (data, xhr, options) => {
 
                         if(options.pjax && $$.pjax) {

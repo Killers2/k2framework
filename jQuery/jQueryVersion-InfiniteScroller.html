@@ -168,7 +168,9 @@
                 }
             });
 
-    
+            //if used by menuModal in iframemode we want to trigger the onloaded event
+            window.top.document.dispatchEvent(new Event("iframe.event.receiver"));
+
         });
 
     </script>
