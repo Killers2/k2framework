@@ -811,14 +811,6 @@
     };
 
     $.inQuiry.socket = function (host, onOpen, onParse, onClose, onError) {
-        
-        var support = "MozWebSocket" in window ? 'MozWebSocket' : ("WebSocket" in window ? 'WebSocket' : null);
-        
-        if (support == null) { 
-            console.log("Your browser does not support WebSockets")
-            return; 
-        }
-
         this.socket = null;
         this.host = host;
         this.onOpenEvent = onOpen;
@@ -826,38 +818,88 @@
         this.onCloseEvent = onClose;
         this.onErrorEvent = onError;
 
-        this.send = function (data) { 
-
-            this.socket.send(data); 
-
+        var support = "MozWebSocket" in window ? 'MozWebSocket' : ("WebSocket" in window ? 'WebSocket' : null);
+        
+        if (support == null) { 
+            console.log("Your browser does not support WebSockets")
+            return; 
         }
 
-        try 
+        this.socket = new window[support]('ws' + (location.protocol.indexOf("s") > 0 ? 's' : '') + '://' + host);
+
+        this.send = (data) =>
         {
 
-            this.socket = new window[support]('ws' + (location.protocol.indexOf("s") > 0 ? 's' : '') + '://' + host);
+            try {
 
-            this.socket.onopen = function() {
+                this.socket.send(data);
+
+            } catch (ex) {
+
+                if (this.onErrorEvent) {
+
+                    this.onErrorEvent(this.socket, ex);
+
+                }
+
+                this.socket.close();
+
+            }
+            
+        }
+
+        this.socket.onopen = () => 
+        {
+
+            try {
 
                 if (this.onOpenEvent) {
 
                     this.onOpenEvent(this.socket);
-                    
+
                 }
 
-            };
+            } catch (ex) {
 
-            this.socket.onmessage = function(evt) {
+                if (this.onErrorEvent) {
+
+                    this.onErrorEvent(this.socket, ex);
+
+                }
+
+                this.socket.close();
+
+            }
+
+        };
+
+        this.socket.onmessage = (evt) => {
+
+            try {
 
                 if (this.onParseEvent) {
 
                     this.onParseEvent(this.socket, evt);
-                    
+
                 }
 
-            };
+            } catch (ex) {
 
-            this.socket.onclose = function() {
+                if (this.onErrorEvent) {
+
+                    this.onErrorEvent(this.socket, ex);
+
+                }
+
+                this.socket.close();
+
+            }
+
+        };
+
+        this.socket.onclose = () =>  {
+
+            try {
 
                 if (this.onCloseEvent) {
 
@@ -867,19 +909,19 @@
 
                 this.socket.close();
 
-            };
+            } catch (ex) {
 
-        } catch (ex) {
+                if (this.onErrorEvent) {
 
-            if (this.onErrorEvent) {
+                    this.onErrorEvent(this.socket, ex);
 
-                this.onErrorEvent(this.socket, ex);
+                }
+
+                this.socket.close();
 
             }
 
-            this.socket.close();
-
-        }
+        };
 
         return this;
 
