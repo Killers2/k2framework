@@ -3474,7 +3474,7 @@
     };
     String.prototype.isEmptyOrNull = function (value) {     
 
-        if(value == null || value == "") {
+        if(value == null || value == "" || value == undefind) {
 
             return true;
 
